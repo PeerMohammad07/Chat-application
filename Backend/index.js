@@ -6,13 +6,15 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+const private_key = process.env.PRIVATE_KEY
+
 app.post("/authenticate", async (req, res) => {
   const { username } = req.body;
   try {
     const r =  await axios.put(
       'https://api.chatengine.io/users/',
       {username:username,secret:username,first_name:username},
-      {headers:{"private-key":'4a6a5323-a1cd-4ea7-95ed-6095301bc9b4'}})
+      {headers:{"private-key":private_key}})
 
       return res.status(r.status).json(r.data)
   } catch (error) {
